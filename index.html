@@ -69,23 +69,18 @@ Password: ••••••••
       <p class="eyebrow">02 · Dashboard</p>
       <h2>See and control every tunnel</h2>
       <p class="intro">Everything the clients do shows up live in the web dashboard. Watch traffic as it happens, open a device's SSH for an hour, or sign a lost laptop out, all from the browser.</p>
-      <div class="shots" data-tabs>
-        <div class="shot-tabs" role="tablist" aria-label="Dashboard pages">
-          <button role="tab" id="tab-shot-tunnels" aria-controls="shot-tunnels" aria-selected="true">Tunnels</button>
-          <button role="tab" id="tab-shot-devices" aria-controls="shot-devices" aria-selected="false" tabindex="-1">Devices</button>
-          <button role="tab" id="tab-shot-tokens" aria-controls="shot-tokens" aria-selected="false" tabindex="-1">Tokens</button>
-        </div>
-        <figure class="shot" id="shot-tunnels" role="tabpanel" aria-labelledby="tab-shot-tunnels">
+      <div class="shots">
+        <figure class="shot main">
           <img src="assets/screens/dashboard-tunnels.png" alt="Tunnels page: open tunnels with live requests and traffic per client" width="1360" height="820" loading="lazy">
-          <figcaption>Live tunnels per computer and device, with requests, traffic and a one-click disconnect.</figcaption>
+          <figcaption><strong>Tunnels.</strong> Live tunnels per computer and device, with requests, traffic and a one-click disconnect.</figcaption>
         </figure>
-        <figure class="shot" id="shot-devices" role="tabpanel" aria-labelledby="tab-shot-devices" hidden>
+        <figure class="shot">
           <img src="assets/screens/dashboard-devices.png" alt="Devices page: agents with services that can be opened for a set time" width="1360" height="820" loading="lazy">
-          <figcaption>Devices and the services they offer. Open one for a set time; it closes again on its own.</figcaption>
+          <figcaption><strong>Devices.</strong> The services each device offers. Open one for a set time; it closes again on its own.</figcaption>
         </figure>
-        <figure class="shot" id="shot-tokens" role="tabpanel" aria-labelledby="tab-shot-tokens" hidden>
+        <figure class="shot">
           <img src="assets/screens/dashboard-tokens.png" alt="Tokens page: signed-in computers and device tokens" width="1360" height="820" loading="lazy">
-          <figcaption>Computers you've signed in on, and a token for each device. Rename, sign out or revoke any of them.</figcaption>
+          <figcaption><strong>Tokens.</strong> Computers you've signed in on, and a token for each device. Rename, sign out or revoke any of them.</figcaption>
         </figure>
       </div>
     </section>
