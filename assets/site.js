@@ -1,6 +1,6 @@
-// Language tabs (arrow keys move between them).
-(() => {
-  const tabs = [...document.querySelectorAll('.lang-tabs [role="tab"]')];
+// Tab groups ([data-tabs]); arrow keys move between tabs.
+for (const group of document.querySelectorAll('[data-tabs]')) {
+  const tabs = [...group.querySelectorAll('[role="tab"]')];
   const select = (tab) => {
     for (const t of tabs) {
       const on = t === tab;
@@ -19,7 +19,7 @@
       next.focus();
     });
   });
-})();
+}
 
 // Highlight the download that matches this computer.
 (async () => {
