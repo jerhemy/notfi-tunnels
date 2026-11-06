@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notfi Tunnels: secure tunnels to your local services and devices</title>
+  <meta name="description" content="Expose a local web app or port at a public URL, reach devices on demand, and manage it all from your own server.">
+  <meta name="theme-color" content="#0f1033">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-row">
+      <a href="#" class="brand" aria-label="Notfi Tunnels"><img src="assets/notfi-tunnels-logo-dark.svg" alt="Notfi Tunnels" height="34"></a>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#start">Get started</a>
+        <a href="#devices">Devices</a>
+        <a href="#dotnet">.NET</a>
+        <a href="#self-host">Self-host</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <h1>Your local services,<br><span class="grad">reachable in one command.</span></h1>
+          <p class="lead">Notfi Tunnels gives a web app on your laptop, an SSH port on a field device, or a service inside your app a public address, through a server you control.</p>
+          <div class="cta">
+            <a class="button primary" href="#start">Get started</a>
+            <a class="button" href="#how">How it works</a>
+          </div>
+        </div>
+        <div class="terminal" aria-label="Example terminal session">
+          <div class="terminal-bar"><span></span><span></span><span></span></div>
+<pre><span class="prompt">$</span> notfi-tunnel login
+Token for tunnels.notfi.io:4443: ••••••••
+<span class="ok">Logged in as 'alice'.</span>
+
+<span class="prompt">$</span> notfi-tunnel http 3000
+Signed in as 'alice'
+Inspector:  http://127.0.0.1:4040
+<span class="ok">Forwarding: https://k3j9x0ab.tunnels.notfi.io → http://localhost:3000</span>
+12:04:31.552  GET   /api/orders        200   18 ms
+12:04:33.107  POST  /api/orders        201   42 ms</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="wrap">
+      <h2>Everything a tunnel should do</h2>
+      <div class="cards">
+        <article class="card"><h3>HTTP and TCP tunnels</h3><p>Web apps get an HTTPS subdomain with WebSockets, streaming and large uploads. SSH, databases and anything else get a TCP port.</p></article>
+        <article class="card"><h3>Devices on demand</h3><p>Agents on devices check in quietly and open SSH or a web UI only when someone asks, for as long as they ask. Nothing is exposed in between.</p></article>
+        <article class="card"><h3>Web dashboard</h3><p>Live tunnels with traffic graphs, history, tokens with expiry, devices, users and an activity log of every sign-in and change.</p></article>
+        <article class="card"><h3>Request inspector</h3><p>See every request and response on your machine at localhost:4040, replay it, or copy it as curl.</p></article>
+        <article class="card"><h3>Built for code</h3><p>A .NET library opens tunnels inside your app, and <code>--json</code> makes the CLI easy to drive from anything else.</p></article>
+        <article class="card"><h3>Secure by default</h3><p>TLS everywhere, per-device tokens you can revoke instantly, an encrypted database, and limits that keep one client from hogging the server.</p></article>
+      </div>
+    </section>
+
+    <section id="how" class="wrap">
+      <h2>How it works</h2>
+      <ol class="flow">
+        <li><strong>The client connects out.</strong> It opens a connection to your server, so it works from behind NAT, firewalls and cellular networks. Nothing connects into your machine or device.</li>
+        <li><strong>The server gives it an address.</strong> <code>https://name.tunnels.notfi.io</code> for web apps, <code>tunnels.notfi.io:20022</code> for TCP.</li>
+        <li><strong>Traffic is relayed.</strong> Each visitor's connection is carried to the client over its own connection, then on to your local service.</li>
+      </ol>
+    </section>
+
+    <section id="start" class="wrap">
+      <h2>Get started</h2>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><div><h3>Install the client</h3><p>Single-file builds for Windows, macOS and Linux (x64 and ARM64). No runtime to install. Ask your admin for the package, or see the releases.</p></div></div>
+        <div class="step"><span class="n">2</span><div><h3>Create a token and log in</h3><p>Sign in to the web dashboard, create a token for the machine, then:</p><pre class="code">notfi-tunnel login</pre></div></div>
+        <div class="step"><span class="n">3</span><div><h3>Expose a port</h3><pre class="code">notfi-tunnel http 3000
+notfi-tunnel http 3000 --subdomain myapp
+notfi-tunnel tcp 22 --remote-port 20022</pre></div></div>
+      </div>
+    </section>
+
+    <section id="devices" class="wrap split">
+      <div>
+        <h2>Reach devices only when you need to</h2>
+        <p>Run the client as an agent on a device. It checks in every few seconds over a short outbound connection and keeps nothing open. Open a service from the dashboard, pick how long, and the device opens that tunnel on its next check-in. It closes again on its own.</p>
+        <ul class="ticks">
+          <li>The device decides which services can ever be opened.</li>
+          <li>Only the device's owner and admins can open them.</li>
+          <li>Web services get a stable address like <code>web-ep200.tunnels.notfi.io</code>.</li>
+          <li>Runs as a systemd service; works on glibc and musl ARM64 Linux.</li>
+        </ul>
+      </div>
+      <pre class="code tall">notfi-tunnel agent \
+  --service tcp:22 \
+  --service http:8080 \
+  --name ep200
+
+Agent 'ep200' checked in, offering
+  tcp-22 (tcp localhost:22),
+  http-8080 (http localhost:8080).
+Checking in every 30s.
+Opening 'tcp-22' for alice, closes at 14:30</pre>
+    </section>
+
+    <section id="dotnet" class="wrap split">
+      <div>
+        <h2>Tunnels inside your .NET app</h2>
+        <p>The <code>Notfi.Tunnels.Client</code> package runs the same engine as the CLI in your process. There's no process to spawn and no output to parse: you get the URL back and events for every request.</p>
+      </div>
+<pre class="code tall">await using var tunnel = await NotfiTunnel.StartHttpAsync(5000,
+    new NotfiTunnelOptions { Token = token });
+
+Console.WriteLine(tunnel.PublicUrl);
+
+tunnel.RequestCompleted += (_, r) =>
+    Console.WriteLine($"{r.Method} {r.Path} → {r.Status}");</pre>
+    </section>
+
+    <section id="self-host" class="wrap">
+      <h2>Run it on your own server</h2>
+      <p>The server is a single Linux executable with its web dashboard built in, installed as a systemd service. A 1 GB droplet is plenty to start. It uses SQLite out of the box and works with PostgreSQL. Point clients at it with <code>--server tunnels.example.com</code>, or <code>Server = "https://tunnels.example.com"</code> in code.</p>
+      <div class="cards three">
+        <article class="card"><h3>Wildcard DNS and TLS</h3><p><code>*.tunnels.example.com</code> plus a Let's Encrypt wildcard certificate, renewed automatically.</p></article>
+        <article class="card"><h3>Accounts and tokens</h3><p>Users sign in with passwords and create per-device tokens; admins manage users, sessions and devices.</p></article>
+        <article class="card"><h3>Hardened service</h3><p>Runs unprivileged in a systemd sandbox, with an encrypted database and the key kept apart from it.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <img src="assets/notfi-tunnels-mark.svg" alt="" height="28">
+    <span>Notfi Tunnels</span>
+  </footer>
+</body>
+</html>
