@@ -99,12 +99,11 @@ Password: ••••••••
       <p class="eyebrow">04 · Get started</p>
       <h2>Get started</h2>
       <div class="steps">
-        <div class="step"><span class="n">1</span><div><h3>Install the client</h3><p>One file for Windows, macOS or Linux, on Intel or ARM. Nothing else to install. <a href="#download">Pick your download</a>.</p></div></div>
+        <div class="step"><span class="n">1</span><div><h3>Install the client</h3><p>One file for Windows, macOS or Linux. Nothing else to install. <a href="#download">Pick your download</a>.</p></div></div>
         <div class="step"><span class="n">2</span><div><h3>Log in</h3><p>On your own computer, sign in with your username and password. Devices use a token from the dashboard instead.</p><pre class="code">notfi-tunnel login
 notfi-tunnel login &lt;device-token&gt;</pre></div></div>
         <div class="step"><span class="n">3</span><div><h3>Expose a port</h3><pre class="code">notfi-tunnel http 3000
-notfi-tunnel http 3000 --subdomain myapp
-notfi-tunnel tcp 22 --remote-port 20022</pre></div></div>
+notfi-tunnel tcp 22</pre><p>Addresses are random. To use a name of your own, assign it to your token in the dashboard, then <code>--subdomain myapp</code>.</p></div></div>
       </div>
     </section>
 
@@ -118,17 +117,15 @@ notfi-tunnel tcp 22 --remote-port 20022</pre></div></div>
           <p>Windows 10, Windows 11 and Windows Server.</p>
           <div class="arches">
             <a class="button" data-arch="x64" href="https://github.com/jerhemy/notfi-tunnels/releases/latest/download/notfi-tunnel-win-x64.zip">x64</a>
-            <a class="button" data-arch="arm64" href="https://github.com/jerhemy/notfi-tunnels/releases/latest/download/notfi-tunnel-win-arm64.zip">ARM64</a>
           </div>
           <pre class="code">Expand-Archive notfi-tunnel-win-x64.zip
 .\notfi-tunnel-win-x64\notfi-tunnel.exe login</pre>
         </article>
         <article class="card platform" data-os="macos">
           <h3>macOS</h3>
-          <p>Apple silicon and Intel Macs. Downloaded in a browser? Clear the quarantine flag first.</p>
+          <p>Apple silicon Macs. Downloaded in a browser? Clear the quarantine flag first.</p>
           <div class="arches">
             <a class="button" data-arch="arm64" href="https://github.com/jerhemy/notfi-tunnels/releases/latest/download/notfi-tunnel-osx-arm64.tar.gz">Apple silicon</a>
-            <a class="button" data-arch="x64" href="https://github.com/jerhemy/notfi-tunnels/releases/latest/download/notfi-tunnel-osx-x64.tar.gz">Intel</a>
           </div>
           <pre class="code">tar -xzf notfi-tunnel-osx-arm64.tar.gz
 cd notfi-tunnel-osx-arm64
@@ -141,7 +138,6 @@ xattr -d com.apple.quarantine notfi-tunnel
           <div class="arches">
             <a class="button" data-arch="x64" href="https://github.com/jerhemy/notfi-tunnels/releases/latest/download/notfi-tunnel-linux-x64.tar.gz">x64</a>
             <a class="button" data-arch="arm64" href="https://github.com/jerhemy/notfi-tunnels/releases/latest/download/notfi-tunnel-linux-arm64.tar.gz">ARM64</a>
-            <a class="button" data-arch="arm" href="https://github.com/jerhemy/notfi-tunnels/releases/latest/download/notfi-tunnel-linux-arm.tar.gz">ARM 32-bit</a>
           </div>
           <pre class="code">tar -xzf notfi-tunnel-linux-x64.tar.gz
 sudo install notfi-tunnel-linux-x64/notfi-tunnel /usr/local/bin/
