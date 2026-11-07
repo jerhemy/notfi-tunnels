@@ -60,7 +60,7 @@ Token for tunnels.notfi.io:4443 (from the Account page): •••••••�
         <article class="card"><h3>Web dashboard</h3><p>Live tunnels with traffic graphs, history, devices, your token and fixed subdomains, users and an activity log of every sign-in and change.</p></article>
         <article class="card"><h3>Request inspector</h3><p>See every request and response on your machine, replay it, or copy it as curl. Only you can open it.</p></article>
         <article class="card"><h3>Built for code</h3><p>Client libraries open tunnels inside your app, starting with .NET, and <code>--json</code> makes the CLI easy to drive from any language.</p></article>
-        <article class="card"><h3>Secure by default</h3><p>TLS everywhere, one token per account that you can replace instantly, no passwords, data encrypted at rest, and limits that keep one client from hogging the server.</p></article>
+        <article class="card"><h3>Secure by default</h3><p>TLS everywhere, one token per account that you can replace instantly, data encrypted at rest, and limits that keep one client from hogging the server.</p></article>
       </div>
     </section>
 
@@ -99,7 +99,7 @@ Token for tunnels.notfi.io:4443 (from the Account page): •••••••�
       <h2>Get started</h2>
       <div class="steps">
         <div class="step"><span class="n">1</span><div><h3>Install the client</h3><p>One file for Windows, macOS or Linux. Nothing else to install. <a href="#download">Pick your download</a>.</p></div></div>
-        <div class="step"><span class="n">2</span><div><h3>Log in</h3><p>Paste the token from your Account page. The same token works on every machine and device you use, and in the dashboard.</p><pre class="code">notfi-tunnel login</pre></div></div>
+        <div class="step"><span class="n">2</span><div><h3>Log in</h3><p>Paste the token from your Account page in the dashboard. The same token works on every machine and device you use.</p><pre class="code">notfi-tunnel login</pre></div></div>
         <div class="step"><span class="n">3</span><div><h3>Expose a port</h3><pre class="code">notfi-tunnel http 3000
 notfi-tunnel tcp 22</pre><p>Addresses are random. To use a name of your own, assign it to your account in the dashboard, then <code>--subdomain myapp</code>.</p></div></div>
       </div>
@@ -224,7 +224,7 @@ tunnel.RequestCompleted += (_, r) =>
       </div>
       <div class="cards three">
         <article class="card"><h3>Your domain, with TLS</h3><p>Tunnels live under your own domain, such as <code>*.tunnels.example.com</code>, with a wildcard certificate that renews automatically.</p></article>
-        <article class="card"><h3>Accounts and tokens</h3><p>One token per person, no passwords: it signs them in everywhere and can be replaced in a click; admins manage users, sessions and devices.</p></article>
+        <article class="card"><h3>Accounts and tokens</h3><p>People sign in to the dashboard with a password and get one token for all their machines and devices, replaceable in a click; admins manage users, sessions and devices.</p></article>
         <article class="card"><h3>Private by design</h3><p>Data is encrypted at rest with a key you keep, and history and activity are cleaned up after a retention period you choose.</p></article>
       </div>
     </section>
