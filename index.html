@@ -40,9 +40,8 @@
         <div class="terminal" aria-label="Example terminal session">
           <div class="terminal-bar"><span>alice@macbook</span></div>
 <pre><span class="prompt">$</span> notfi-tunnel login
-Username for tunnels.notfi.io:4443: alice
-Password: ••••••••
-<span class="ok">Logged in as 'alice' on 'alices-macbook'.</span>
+Token for tunnels.notfi.io:4443 (from the Account page): ••••••••
+<span class="ok">Logged in to tunnels.notfi.io:4443 as 'alice'.</span>
 
 <span class="prompt">$</span> notfi-tunnel http 3000
 <span class="ok">Forwarding: https://k3j9x0ab.tunnels.notfi.io → localhost:3000</span>
@@ -57,11 +56,11 @@ Password: ••••••••
       <h2>Everything a tunnel should do</h2>
       <div class="cards">
         <article class="card"><h3>HTTP and TCP tunnels</h3><p>Web apps get an HTTPS subdomain with WebSockets, streaming and large uploads. SSH, databases and anything else get a TCP port.</p></article>
-        <article class="card"><h3>Devices on demand</h3><p>Agents on devices check in quietly and open SSH or a web UI only when someone asks, for as long as they ask. Nothing is exposed in between.</p></article>
-        <article class="card"><h3>Web dashboard</h3><p>Live tunnels with traffic graphs, history, signed-in computers, device tokens, users and an activity log of every sign-in and change.</p></article>
+        <article class="card"><h3>Devices on demand</h3><p>Agents on devices hold one quiet connection and open SSH or a web UI only when someone asks, for as long as they ask. Nothing is exposed in between.</p></article>
+        <article class="card"><h3>Web dashboard</h3><p>Live tunnels with traffic graphs, history, devices, your token and fixed subdomains, users and an activity log of every sign-in and change.</p></article>
         <article class="card"><h3>Request inspector</h3><p>See every request and response on your machine, replay it, or copy it as curl. Only you can open it.</p></article>
         <article class="card"><h3>Built for code</h3><p>Client libraries open tunnels inside your app, starting with .NET, and <code>--json</code> makes the CLI easy to drive from any language.</p></article>
-        <article class="card"><h3>Secure by default</h3><p>TLS everywhere, a token per computer and per device that you can revoke instantly, data encrypted at rest, and limits that keep one client from hogging the server.</p></article>
+        <article class="card"><h3>Secure by default</h3><p>TLS everywhere, one token per account that you can replace instantly, no passwords, data encrypted at rest, and limits that keep one client from hogging the server.</p></article>
       </div>
     </section>
 
@@ -79,8 +78,8 @@ Password: ••••••••
           <figcaption><strong>Devices.</strong> The services each device offers. Open one for a set time; it closes again on its own.</figcaption>
         </figure>
         <figure class="shot">
-          <img src="assets/screens/dashboard-tokens.png" alt="Tokens page: signed-in computers and device tokens" width="1360" height="820" loading="lazy">
-          <figcaption><strong>Tokens.</strong> Computers you've signed in on, and a token for each device. Rename, sign out or revoke any of them.</figcaption>
+          <img src="assets/screens/dashboard-tokens.png" alt="Account page: your token and fixed subdomains" width="1360" height="820" loading="lazy">
+          <figcaption><strong>Account.</strong> Your one token, which you can show again or replace, and the subdomains that are yours.</figcaption>
         </figure>
       </div>
     </section>
@@ -100,10 +99,9 @@ Password: ••••••••
       <h2>Get started</h2>
       <div class="steps">
         <div class="step"><span class="n">1</span><div><h3>Install the client</h3><p>One file for Windows, macOS or Linux. Nothing else to install. <a href="#download">Pick your download</a>.</p></div></div>
-        <div class="step"><span class="n">2</span><div><h3>Log in</h3><p>On your own computer, sign in with your username and password. Devices use a token from the dashboard instead.</p><pre class="code">notfi-tunnel login
-notfi-tunnel login &lt;device-token&gt;</pre></div></div>
+        <div class="step"><span class="n">2</span><div><h3>Log in</h3><p>Paste the token from your Account page. The same token works on every machine and device you use, and in the dashboard.</p><pre class="code">notfi-tunnel login</pre></div></div>
         <div class="step"><span class="n">3</span><div><h3>Expose a port</h3><pre class="code">notfi-tunnel http 3000
-notfi-tunnel tcp 22</pre><p>Addresses are random. To use a name of your own, assign it to your token in the dashboard, then <code>--subdomain myapp</code>.</p></div></div>
+notfi-tunnel tcp 22</pre><p>Addresses are random. To use a name of your own, assign it to your account in the dashboard, then <code>--subdomain myapp</code>.</p></div></div>
       </div>
     </section>
 
@@ -151,11 +149,11 @@ notfi-tunnel login</pre>
       <div>
         <p class="eyebrow">06 · Devices</p>
         <h2>Reach devices only when you need to</h2>
-        <p>Run the client as an agent on a device. It checks in every few seconds over a short outbound connection and keeps nothing open. Open a service from the dashboard, pick how long, and the device opens that tunnel on its next check-in. It closes again on its own.</p>
+        <p>Run the client as an agent on a device. It holds one outbound connection and sends a 4-byte keepalive every minute, nothing more. Open a service from the dashboard, pick how long, and the device opens that tunnel right away. It closes again on its own.</p>
         <ul class="ticks">
           <li>The device decides which services can ever be opened.</li>
           <li>Only the device's owner and admins can open them.</li>
-          <li>Each device has its own token, so it can be tracked and revoked on its own.</li>
+          <li>Devices use your account's token; replace it and every device is out at once.</li>
           <li>Runs as a background service on x64 and ARM Linux.</li>
         </ul>
       </div>
@@ -164,10 +162,10 @@ notfi-tunnel login</pre>
   --service http:8080 \
   --name gateway-01
 
-Agent 'gateway-01' checked in, offering
+Device 'gateway-01' registered as 'alice', offering
   tcp-22 (tcp localhost:22),
   http-8080 (http localhost:8080).
-Checking in every 30s.
+Keepalive every 60s.
 Opening 'tcp-22' for alice, closes at 14:30</pre>
     </section>
 
@@ -226,7 +224,7 @@ tunnel.RequestCompleted += (_, r) =>
       </div>
       <div class="cards three">
         <article class="card"><h3>Your domain, with TLS</h3><p>Tunnels live under your own domain, such as <code>*.tunnels.example.com</code>, with a wildcard certificate that renews automatically.</p></article>
-        <article class="card"><h3>Accounts and tokens</h3><p>Users sign in with passwords on their own computers and create a token for each device; admins manage users, sessions and devices.</p></article>
+        <article class="card"><h3>Accounts and tokens</h3><p>One token per person, no passwords: it signs them in everywhere and can be replaced in a click; admins manage users, sessions and devices.</p></article>
         <article class="card"><h3>Private by design</h3><p>Data is encrypted at rest with a key you keep, and history and activity are cleaned up after a retention period you choose.</p></article>
       </div>
     </section>
