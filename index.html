@@ -138,11 +138,10 @@ xattr -d com.apple.quarantine notfi-tunnel
             <a class="button" data-arch="arm64" href="https://github.com/jerhemy/notfi-tunnels/releases/latest/download/notfi-tunnel-linux-arm64.tar.gz">ARM64</a>
           </div>
           <pre class="code">tar -xzf notfi-tunnel-linux-x64.tar.gz
-sudo install notfi-tunnel-linux-x64/notfi-tunnel /usr/local/bin/
-notfi-tunnel login</pre>
+sudo sh notfi-tunnel-linux-x64/install.sh</pre>
         </article>
       </div>
-      <p class="note">The Linux downloads also include a systemd unit and installer for running the client as a device agent.</p>
+      <p class="note">On Linux the installer asks whether to set up the client or a device agent, then asks for your token (and, for an agent, which services it may open) and does the rest.</p>
     </section>
 
     <section id="devices" class="wrap split">
